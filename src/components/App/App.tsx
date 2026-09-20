@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import css from "./App.module.css";
 import type { Movie } from "../../types/movie";
-import { fetchMovies, searchMovies } from "../../services/movieService";
+import { fetchMovies } from "../../services/movieService";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import SearchBar from "../SearchBar/SearchBar";
 import Loader from "../Loader/Loader";
@@ -30,16 +30,16 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (!searchQuery) return;
+
     const getMovies = async () => {
       try {
         setIsLoading(true);
         setIsError(false);
 
-        const data = searchQuery
-          ? await searchMovies(searchQuery)
-          : await fetchMovies();
+        const data = await fetchMovies(searchQuery);
 
-        if (searchQuery && data.length === 0) {
+        if (data.length === 0) {
           toast.error("No movies found for your request.");
         }
 
@@ -68,7 +68,6 @@ const App = () => {
         )}
       </div>
 
-      {}
       {selectedMovie && (
         <MovieModal movie={selectedMovie} onClose={handleCloseModal} />
       )}

@@ -20,15 +20,10 @@ interface TmdbResponse {
   total_results: number;
 }
 
-export const fetchMovies = async (): Promise<Movie[]> => {
-  const response = await tmdbApi.get<TmdbResponse>("/trending/movie/day");
-  return response.data.results;
-};
-
-export const searchMovies = async (query: string): Promise<Movie[]> => {
+export const fetchMovies = async (query: string): Promise<Movie[]> => {
   const response = await tmdbApi.get<TmdbResponse>("/search/movie", {
     params: {
-      query: query,
+      query,
     },
   });
   return response.data.results;
