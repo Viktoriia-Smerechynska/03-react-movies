@@ -11,10 +11,9 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
-  // Обробник відправки форми з SearchBar
   const handleSearchSubmit = (query: string): void => {
-    setMovies([]); // При кожному новому пошуку очищаємо попередню колекцію фільмів
-    setSearchQuery(query); // Записуємо нове ключове слово
+    setMovies([]);
+    setSearchQuery(query);
   };
 
   useEffect(() => {
@@ -22,12 +21,10 @@ const App = () => {
       try {
         setError(null);
 
-        // Якщо запиту немає — завантажуємо тренди, якщо є — шукаємо фільми
         const data = searchQuery
           ? await searchMovies(searchQuery)
           : await fetchMovies();
 
-        // Перевірка на порожній масив результатів у момент обробки запиту
         if (searchQuery && data.length === 0) {
           toast.error("No movies found for your request.");
         }
@@ -43,7 +40,7 @@ const App = () => {
 
   return (
     <div className={css.app}>
-      {/* Підключаємо компонент пошуку */}
+      {}
       <SearchBar onSubmit={handleSearchSubmit} />
 
       <div className={css.container}>
@@ -58,7 +55,7 @@ const App = () => {
         {movies.length > 0 && <MovieGrid movies={movies} />}
       </div>
 
-      {/* Обов'язковий контейнер від бібліотеки для рендеру сповіщень */}
+      {}
       <Toaster position="top-right" reverseOrder={false} />
     </div>
   );

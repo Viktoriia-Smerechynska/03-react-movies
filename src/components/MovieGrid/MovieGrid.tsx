@@ -3,30 +3,30 @@ import type { Movie } from "../../types/movie";
 
 interface MovieGridProps {
   movies: Movie[];
+  onSelect: (movie: Movie) => void;
 }
 
-const MovieGrid = ({ movies }: MovieGridProps) => {
-  // Базове зображення, якщо у фільму немає постера на серверах TMDB
+const MovieGrid = ({ movies, onSelect }: MovieGridProps) => {
   const defaultImg = "https://viber.com";
 
   return (
     <ul className={css.grid}>
       {movies.map((movie) => {
-        // Формуємо правильне посилання на постер фільму
         const posterUrl = movie.poster_path
           ? `https://tmdb.org{movie.poster_path}`
           : defaultImg;
 
         return (
           <li key={movie.id}>
-            <div className={css.card}>
+            {}
+            <div className={css.card} onClick={() => onSelect(movie)}>
               <img
-                className={css.image} // ВИПРАВЛЕНО: використовуємо точний клас .image від менторів
+                className={css.image}
                 src={posterUrl}
-                alt={movie.title || "Постер фільму"}
+                alt={movie.title || "Movie title"}
+                loading="lazy"
               />
-              {/* Назва накладатиметься поверх картинки завдяки стилю .title */}
-              <h3 className={css.title}>{movie.title}</h3>
+              <h2 className={css.title}>{movie.title}</h2>
             </div>
           </li>
         );
