@@ -13,17 +13,16 @@ const MovieGrid = ({ movies, onSelect }: MovieGridProps) => {
     <ul className={css.grid}>
       {movies.map((movie) => {
         const posterUrl = movie.poster_path
-          ? `https://tmdb.org{movie.poster_path}`
+          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
           : defaultImg;
 
         return (
           <li key={movie.id}>
-            {}
             <div className={css.card} onClick={() => onSelect(movie)}>
               <img
                 className={css.image}
                 src={posterUrl}
-                alt={movie.title || "Movie title"}
+                alt={movie.title || "Movie poster"}
                 loading="lazy"
               />
               <h2 className={css.title}>{movie.title}</h2>

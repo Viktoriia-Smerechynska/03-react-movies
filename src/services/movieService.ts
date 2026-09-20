@@ -4,7 +4,7 @@ import type { Movie } from "../types/movie";
 const ACCESS_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
 
 const tmdbApi = axios.create({
-  baseURL: "https://api.themoviedb.org/3/search/movie",
+  baseURL: "https://api.themoviedb.org/3",
   headers: {
     Authorization: `Bearer ${ACCESS_TOKEN}`,
   },
